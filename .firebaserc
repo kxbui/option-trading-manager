@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "option-trading-manager": {
+      "hosting": {
+        "option-trading-manager": [
+          "option-trading-manager"
+        ]
+      }
+    }
+  }
+}
