@@ -18,7 +18,7 @@ export class ActiveTradeComponent implements OnInit {
   async addOption(): Promise<void> {
     const { OptionFormComponent } = await import('./option-form/option-form.component');
     const dialogRef = this.dialog.open(OptionFormComponent, {
-      width: '250px',
+      width: '500px',
       data: {}
     });
   }
