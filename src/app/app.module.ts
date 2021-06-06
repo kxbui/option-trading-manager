@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -13,7 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from './core/services/user.service';
+import { AuthGuard } from './core/guards/auth.guard';
 
+export function loadUser(userService: UserService) {
+  return () => {
+    return userService.loadUser()
+  };
+}
 
 const routes: Routes = [
   {
@@ -22,12 +30,14 @@ const routes: Routes = [
       import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'active-trade',
+    path: 'recent-trade',
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./active-trade/active-trade.module').then(m => m.ActiveTradeModule)
+      import('./recent-trade/recent-trade.module').then(m => m.RecentTradeModule)
   },
   {
     path: 'history',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./history/history.module').then(m => m.HistoryModule)
   },
@@ -46,9 +56,12 @@ const routes: Routes = [
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectModule, //TODO
-    MatDatepickerModule, //TODO
-    MatNativeDateModule, //TODO
+
+    // TODO
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
 
     FirestoreModule.forRoot({
       apiKey: environment.firebaseConfig.apiKey,
@@ -57,7 +70,14 @@ const routes: Routes = [
 
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadUser,
+      deps: [UserService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

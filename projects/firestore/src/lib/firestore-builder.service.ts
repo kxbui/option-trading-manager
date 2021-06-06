@@ -7,6 +7,8 @@ export class FirestoreBuilderService {
     Object.keys(json).forEach(key => {
       if (json[key] instanceof Array) {
         form[key] = FirestoreBuilderService.buildArray(json[key]);
+      } else if (json[key] instanceof Date) {
+        form[key] = FirestoreBuilderService.buildField(json, key);
       } else if (json[key] instanceof Object) {
         form[key] = FirestoreBuilderService.build(json[key]);
       } else {
@@ -41,11 +43,13 @@ export class FirestoreBuilderService {
     return { arrayValue: { values: values } };
   }
 
-  static getType(value = '') {
+  static getType(value: any) {
     if (value === null || value === undefined) {
       return 'nullValue';
     } else if (Number.isInteger(value)) {
       return 'integerValue';
+    } else if (value instanceof Date) {
+      return 'timestampValue';
     } else {
       return 'stringValue';
     }

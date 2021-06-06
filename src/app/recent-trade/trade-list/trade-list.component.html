@@ -1,0 +1,22 @@
+<mat-card *ngFor="let option of data">
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      <div class="row">
+        <div *ngFor="let col of columnDefs" class="col-md-4 col-sx-12">
+          <strong>{{col.label}}:</strong> {{option[col.value]}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="actions">
+      <button mat-icon-button [matMenuTriggerFor]="actionMenu" [matMenuTriggerData]="{option: option}">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<mat-menu #actionMenu="matMenu">
+  <ng-template matMenuContent let-option="option">
+    <button *ngFor="let action of actions" mat-menu-item (click)="onActionClick(action.value, option)">{{action.label}}</button>
+  </ng-template>
+</mat-menu>

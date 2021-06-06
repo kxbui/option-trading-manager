@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActiveTradeComponent } from './active-trade.component';
+import { RecentTradeComponent } from './recent-trade.component';
 
 describe('ActiveTradeComponent', () => {
-  let component: ActiveTradeComponent;
-  let fixture: ComponentFixture<ActiveTradeComponent>;
+  let component: RecentTradeComponent;
+  let fixture: ComponentFixture<RecentTradeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActiveTradeComponent ]
+      declarations: [ RecentTradeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActiveTradeComponent);
+    fixture = TestBed.createComponent(RecentTradeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

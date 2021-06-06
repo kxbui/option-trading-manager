@@ -2,7 +2,7 @@
     <mat-card class="login-card">
         <mat-card-title>Login</mat-card-title>
         <mat-divider></mat-divider>
-        <form class="login-form" [formGroup]="userForm">
+        <form class="login-form" [formGroup]="userForm" (ngSubmit)="login()">
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput formControlName="email" />
@@ -14,7 +14,7 @@
             </mat-form-field>
 
             <button mat-raised-button color="primary" [class.spinner]="loading$ | async" [disabled]="loading$ | async"
-                (click)="login()">
+                type="submit">
                 Login</button><br />
         </form>
     </mat-card>

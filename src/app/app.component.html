@@ -1,5 +1,5 @@
-<mat-toolbar>
-    <a mat-button routerLink="/active-trade" routerLinkActive="active">Active Trade</a>
+<mat-toolbar *ngIf="userService.user">
+    <a mat-button routerLink="/recent-trade" routerLinkActive="active">Recent Trades</a>
     <a mat-button routerLink="/history" routerLinkActive="active">Past Years</a>
     <span class="spacer"></span>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
@@ -8,5 +8,6 @@
 </mat-toolbar>
 
 
-
-<router-outlet></router-outlet>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

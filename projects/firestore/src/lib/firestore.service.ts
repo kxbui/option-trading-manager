@@ -30,6 +30,16 @@ export class FirestoreService {
     );
   }
 
+  exchangeToken(refresh_token: string) {
+    return this.http.post(
+      `https://securetoken.googleapis.com/v1/token?key=${this.config.apiKey}`,
+      {
+        grant_type: 'refresh_token',
+        refresh_token
+      }
+    );
+  }
+
   setIdToken(token: string) {
     this.config.idToken = token;
   }

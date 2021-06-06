@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
+import { OptionTradingService } from 'src/app/core/services/option-trading.service';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-option-form',
@@ -16,13 +18,30 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class OptionFormComponent implements OnInit {
 
-  constructor() { }
+  formGroup!: FormGroup;
+  constructor(private fb: FormBuilder, private optionService: OptionTradingService) { }
 
   ngOnInit(): void {
+    this.buildForm()
   }
 
   add() {
+    const form = this.formGroup.value;
+    this.optionService.addOption({ ...form, status: 'Active' }).subscribe();
+  }
 
+  buildForm(): void {
+    this.formGroup = this.fb.group({
+      symbol: ['', [Validators.required]],
+      action: ['', [Validators.required]],
+      optionType: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
+      costBasic: ['', [Validators.required]],
+      strikePrice: ['', [Validators.required]],
+      acquiredDate: [''],
+      expirationDate: ['', [Validators.required]],
+      comment: ['']
+    });
   }
 
 }
