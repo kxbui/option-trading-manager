@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/services/user.service';
 import { AuthGuard } from './core/guards/auth.guard';
+import { LoginGuard } from './core/guards/login.guard';
 
 export function loadUser(userService: UserService) {
   return () => {
@@ -26,6 +27,7 @@ export function loadUser(userService: UserService) {
 const routes: Routes = [
   {
     path: 'login',
+    canActivate: [LoginGuard],
     loadChildren: () =>
       import('./login/login.module').then(m => m.LoginModule)
   },
@@ -41,7 +43,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./history/history.module').then(m => m.HistoryModule)
   },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/recent-trade' }
 ];
 
 @NgModule({

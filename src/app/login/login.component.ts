@@ -24,10 +24,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading$.next(true);
     const form = this.userForm.value;
     return this.firestore.signIn(form.email, form.password).pipe(
       tap((resp: any) => this.userService.setUser(resp)),
       tap(_ => this.router.navigate(['active-trade'])),
+      tap(_ => this.loading$.next(false)),
     ).subscribe();
   }
 

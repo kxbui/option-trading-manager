@@ -1,10 +1,11 @@
 <mat-toolbar *ngIf="userService.user">
-    <a mat-button routerLink="/recent-trade" routerLinkActive="active">Recent Trades</a>
-    <a mat-button routerLink="/history" routerLinkActive="active">Past Years</a>
-    <span class="spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>power_settings_new</mat-icon>
-      </button>
+  <a *ngFor="let menuLink of links" mat-button [routerLink]="menuLink.link" routerLinkActive #rla="routerLinkActive"
+    [color]="rla.isActive ? 'primary' : ''" [routerLinkActiveOptions]="{exact:
+      true}">{{menuLink.label}}</a>
+  <span class="spacer"></span>
+  <button mat-icon-button class="logout" aria-label="Logout" (click)="logout()">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
 </mat-toolbar>
 
 
