@@ -9,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 export class TradeListComponent implements OnInit {
 
   @Input()
-  columnDefs!: { label: string; value: string}[];
+  columnDefs!: { label: string; value: string; type?: string}[];
 
   @Input()
   data!: any[] | null;

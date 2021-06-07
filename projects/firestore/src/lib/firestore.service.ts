@@ -48,11 +48,11 @@ export class FirestoreService {
     return this.config.idToken;
   }
 
-  get(url: string, search = {}) {
+  get(url: string, params = {}) {
     return this.api({
       method: 'get',
       url,
-      search,
+      params,
       headers: this.getHeaders()
     });
   }
@@ -74,11 +74,12 @@ export class FirestoreService {
     });
   }
 
-  patch(url: string, body = {}) {
+  patch(url: string, body = {}, params?: any) {
     return this.api({
       method: 'patch',
       url,
       body,
+      params,
       headers: this.getHeaders()
     });
   }
@@ -89,7 +90,7 @@ export class FirestoreService {
         requestOptions.method || 'get',
         this.config.apiBase + requestOptions.url,
         {
-          params: this.toQueryString(requestOptions.search || {}),
+          params: this.toQueryString(requestOptions.params || {}),
           body: JSON.stringify(requestOptions.body),
           headers: requestOptions.headers
         }

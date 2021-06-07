@@ -13,8 +13,8 @@ import { OptionTradingService } from '../core/services/option-trading.service';
 })
 export class RecentTradeComponent implements OnInit {
 
-  activeCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic' }, { label: 'Strike Price', value: 'strikePrice' }, { label: 'Acquired Date', value: 'acquiredDate' }, { label: 'Expiration Date', value: 'expirationDate' }, { label: 'Comment', value: 'comment' }]
-  actions = [{ label: 'Edit', value: 'edit' }, { label: 'Delete', value: 'delete' }]
+  activeCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic' }, { label: 'Strike Price', value: 'strikePrice' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Comment', value: 'comment' }]
+  actions = [{ label: 'Edit', value: 'edit' }, { label: 'Close', value: 'close' }, { label: 'Delete', value: 'delete' }]
   activeOptions$ = new BehaviorSubject<any[] | null>(null);
   actionMap: any;
 
@@ -29,17 +29,21 @@ export class RecentTradeComponent implements OnInit {
     if (this.metadataService.metadata?.years) {
       const years = this.metadataService.metadata.years.filter(({ value }) => value >= new Date().getFullYear());
       this.optionService.getOptionsByYears(years).pipe(
-        map((list: any[]) => list.filter((item: any) => item.status === 'Active')),
+        map((list: any[]) => list.filter((item: any) => item.fields.status === 'Active')),
         tap((list: any[]) => this.activeOptions$.next(list))
       ).subscribe();
     }
   }
 
-  async addOption(): Promise<void> {
+  addOption() {
+    this.openForm();
+  }
+
+  async openForm(option?: any): Promise<void> {
     const { OptionFormComponent } = await import('./option-form/option-form.component');
     const dialogRef = this.dialog.open(OptionFormComponent, {
       width: '500px',
-      data: {}
+      data: {option}
     });
     dialogRef.afterClosed().pipe(
       filter(resp => !!resp),
@@ -49,7 +53,9 @@ export class RecentTradeComponent implements OnInit {
 
   initMap() {
     this.actionMap = {
-      delete: this.delete
+      delete: this.delete,
+      edit: this.edit,
+      close: this.close
     }
   }
 
@@ -59,9 +65,15 @@ export class RecentTradeComponent implements OnInit {
     }
   }
 
-  delete = (option: any) => {
-    this.optionService.deleteOption(option).pipe(
+  delete = (option: {name: string}) => {
+    this.optionService.deleteOption(option.name).pipe(
       tap(_ => this.getRecentTrades())
     ).subscribe();
   }
+
+  edit = (option: any) => { 
+    this.openForm(option);
+  }
+
+  close = (option: any) => { }
 }
