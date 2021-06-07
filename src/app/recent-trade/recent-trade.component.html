@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center"> <button class="mb-2" mat-raised-button color="primary"
       (click)="addOption()">Add Option</button>
   </div>
-  <mat-accordion *ngIf="{activeOptions: activeOptions$ | async}as data">
+  <mat-accordion *ngIf="{activeOptions: activeOptions$ | async, closedOptions: closedOptions$ | async}as data">
     <mat-expansion-panel [expanded]="!!data.activeOptions?.length">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -12,12 +12,14 @@
       <app-trade-list [columnDefs]="activeCols" [data]="data.activeOptions" [actions]="actions"
         (actionClick)="onActionClick($event)"></app-trade-list>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="!!data.closedOptions?.length">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h6>Closed Trades</h6>
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <app-trade-list [columnDefs]="closedCols" [data]="data.closedOptions">
+      </app-trade-list>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

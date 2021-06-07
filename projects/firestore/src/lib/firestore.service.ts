@@ -102,8 +102,14 @@ export class FirestoreService {
     let params = new HttpParams();
     Object.keys(obj).forEach((key: string) => {
       if (obj.hasOwnProperty(key)) {
-        const val = encodeURIComponent(obj[key]);
-        params = params.append(encodeURIComponent(key), val);
+        if (Array.isArray(obj[key])) {
+          obj[key].forEach((element: any) => {
+            params = params.append(encodeURIComponent(key), encodeURIComponent(element));
+          });
+        } else {
+          const val = encodeURIComponent(obj[key]);
+          params = params.append(encodeURIComponent(key), val);
+        }
       }
     });
     return params;

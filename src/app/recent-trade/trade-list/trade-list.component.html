@@ -1,4 +1,8 @@
-<mat-card class="option-card-active mb-2" *ngFor="let option of data">
+<mat-card class="mb-2" [ngClass]="{
+  'option-card-active': option.fields.status === 'Active',
+  'option-card-pos': option.fields.status === 'Closed' && option.fields.totalAmount >= 0,
+  'option-card-neg': option.fields.status === 'Closed' && option.fields.totalAmount < 0
+}" *ngFor="let option of data">
   <div class="d-flex">
     <div class="flex-grow-1">
       <div class="row">
@@ -17,6 +21,7 @@
 
 <mat-menu #actionMenu="matMenu">
   <ng-template matMenuContent let-option="option">
-    <button *ngFor="let action of actions" mat-menu-item (click)="onActionClick(action.value, option)">{{action.label}}</button>
+    <button *ngFor="let action of actions" mat-menu-item
+      (click)="onActionClick(action.value, option)">{{action.label}}</button>
   </ng-template>
 </mat-menu>

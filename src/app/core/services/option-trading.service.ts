@@ -33,9 +33,10 @@ export class OptionTradingService {
   }
 
   editOption(path: string, form: any): Observable<any> {
-    const params = Object.keys(form).reduce((obj, key) => ({ ...obj, ['updateMask.fieldPaths']: key }), {} as any)
+    const params = { 'updateMask.fieldPaths': Object.keys(form) };
     return this.firestore.patch(this.getUrl(path), { fields: FirestoreBuilderService.build(form) }, params);
   }
+  
 
   getUrl(path: string) {
     const nameArr = path.split('/');
