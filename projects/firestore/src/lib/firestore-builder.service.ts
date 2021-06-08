@@ -46,6 +46,8 @@ export class FirestoreBuilderService {
   static getType(value: any) {
     if (value === null || value === undefined) {
       return 'nullValue';
+    } else if (FirestoreBuilderService.isDouble(value)) {
+      return 'doubleValue';
     } else if (Number.isInteger(value)) {
       return 'integerValue';
     } else if (value instanceof Date) {
@@ -61,5 +63,9 @@ export class FirestoreBuilderService {
       form.push(`updateMask.fieldPaths=${key}`);
     });
     return form.join('&');
+  }
+
+  static isDouble(n: any) {
+    return Number(n) === n && n % 1 !== 0;
   }
 }

@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RecentTradeResolver } from './recent-trade-resolver';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { OptionValueFormatterModule } from '../core/option-value-formatter/option-value-formatter.module';
 
 const routes: Routes = [

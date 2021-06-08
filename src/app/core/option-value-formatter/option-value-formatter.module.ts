@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { OptionValueFormatterPipe } from './option-value-formatter.pipe';
 
 
@@ -11,7 +11,7 @@ import { OptionValueFormatterPipe } from './option-value-formatter.pipe';
   imports: [
     CommonModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, CurrencyPipe],
   exports: [
     OptionValueFormatterPipe
   ]

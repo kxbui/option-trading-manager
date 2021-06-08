@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { MetadataService } from '../core/services/metadata.service';
 import { OptionTradingService } from '../core/services/option-trading.service';
 
@@ -13,14 +13,26 @@ import { OptionTradingService } from '../core/services/option-trading.service';
 })
 export class RecentTradeComponent implements OnInit {
 
-  activeCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic' }, { label: 'Strike Price', value: 'strikePrice' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Comment', value: 'comment' }]
-  closedCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic' }, { label: 'Strike Price', value: 'strikePrice' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Closed Date', value: 'closedDate', type: 'date' }, { label: 'Total Gain/Loss', value: 'totalAmount' }, { label: 'Comment', value: 'comment' }]
+  activeCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic', type: 'currency' }, { label: 'Strike Price', value: 'strikePrice', type: 'currency' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Comment', value: 'comment' }]
+  closedCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic', type: 'currency' }, { label: 'Strike Price', value: 'strikePrice', type: 'currency' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Closed Date', value: 'closedDate', type: 'date' }, { label: 'Total Gain/Loss', value: 'totalAmount', type: 'currency' }, { label: 'Comment', value: 'comment' }]
   actions = [{ label: 'Edit', value: 'edit' }, { label: 'Close', value: 'close' }, { label: 'Delete', value: 'delete' }]
   activeOptions$ = new BehaviorSubject<any[] | null>(null);
   closedOptions$ = new BehaviorSubject<any[] | null>(null);
   actionMap: any;
 
   constructor(public dialog: MatDialog, private optionService: OptionTradingService, private metadataService: MetadataService) { }
+
+  get totalBalance$() {
+    return this.closedOptions$.pipe(
+      map(list => list?.reduce((total, item) => total += item.fields.totalAmount, 0))
+    )
+  }
+
+  get potentialEarning$() {
+    return this.activeOptions$.pipe(
+      map(list => list?.reduce((total, item) => total += item.fields.costBasic, 0))
+    )
+  }
 
   ngOnInit(): void {
     this.initMap();
