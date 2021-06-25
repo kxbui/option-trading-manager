@@ -36,7 +36,6 @@ export class OptionClosingComponent implements OnInit {
 
   buildForm(): void {
     this.formGroup = this.fb.group({
-      totalAmount: ['', [Validators.required]],
       closedDate: [''],
       comment: ['']
     });

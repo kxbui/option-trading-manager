@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RecentTradeResolver } from './recent-trade-resolver';
 import { MatMenuModule } from '@angular/material/menu';
 import { OptionValueFormatterModule } from '../core/option-value-formatter/option-value-formatter.module';
+import { TotalBalanceModule } from '../core/total-balance/total-balance.module';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
     MatMenuModule,
 
     OptionValueFormatterModule,
+    TotalBalanceModule,
 
     RouterModule.forChild(routes)
   ]

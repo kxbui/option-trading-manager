@@ -55,6 +55,7 @@ export class OptionFormComponent implements OnInit {
       optionType: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
       costBasic: ['', [Validators.required]],
+      fee: [''],
       strikePrice: ['', [Validators.required]],
       acquiredDate: [''],
       expirationDate: ['', [Validators.required]],

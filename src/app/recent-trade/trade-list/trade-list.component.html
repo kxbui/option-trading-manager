@@ -1,7 +1,6 @@
 <mat-card class="mb-2" [ngClass]="{
   'option-card-active': option.fields.status === 'Active',
-  'option-card-pos': option.fields.status === 'Closed' && option.fields.totalAmount >= 0,
-  'option-card-neg': option.fields.status === 'Closed' && option.fields.totalAmount < 0
+  'option-card-closed': option.fields.status === 'Closed'
 }" *ngFor="let option of data">
   <div class="d-flex">
     <div class="flex-grow-1">
