@@ -58,8 +58,8 @@ export class RecentTradeComponent implements OnInit {
   }
 
   async openForm(option?: any): Promise<void> {
-    const { OptionFormComponent } = await import('./option-form/option-form.component');
-    const dialogRef = this.dialog.open(OptionFormComponent, {
+    const { OptionFormContainerComponent } = await import('./option-form-container/option-form-container.component');
+    const dialogRef = this.dialog.open(OptionFormContainerComponent, {
       width: '500px',
       data: { option }
     });

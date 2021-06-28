@@ -1,0 +1,3 @@
+<h5>{{data.option ? 'Edit' : 'Add'}} Option</h5>
+<mat-divider></mat-divider>
+<app-option-form (formInit)="onFormInit($event)" (formSubmit)="submit($event)"></app-option-form>
