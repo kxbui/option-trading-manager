@@ -62,7 +62,8 @@ export class OptionClosingComponent implements OnInit {
       .editOption(this.data.option.name, {
         ...this.data.option.fields,
         status: 'Closed',
-        closingDate: formGroup.value.closingDate
+        closingDate: formGroup.value.closingDate,
+        comment: formGroup.value.comment
       })
       .pipe(
         switchMap((_) =>
