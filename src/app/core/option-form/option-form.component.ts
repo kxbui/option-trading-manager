@@ -38,6 +38,7 @@ export class OptionFormComponent implements OnInit {
       strikePrice: ['', [Validators.required]],
       acquiredDate: [''],
       expirationDate: ['', [Validators.required]],
+      closingDate: ['', [Validators.required]],
       comment: ['']
     });
   }

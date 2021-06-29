@@ -14,25 +14,14 @@ import { OptionTradingService } from '../core/services/option-trading.service';
 export class RecentTradeComponent implements OnInit {
 
   activeCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic', type: 'currency' }, { label: 'Strike Price', value: 'strikePrice', type: 'currency' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Fee', value: 'fee', type: 'currency' }, { label: 'Comment', value: 'comment' }]
-  closedCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic', type: 'currency' }, { label: 'Strike Price', value: 'strikePrice', type: 'currency' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Fee', value: 'fee', type: 'currency' }, { label: 'Closed Date', value: 'closedDate', type: 'date' }, { label: 'Comment', value: 'comment' }]
-  actions = [{ label: 'Edit', value: 'edit' }, { label: 'Close', value: 'close' }, { label: 'Delete', value: 'delete' }]
+  closedCols = [{ label: 'Symbol', value: 'symbol' }, { label: 'Action', value: 'action' }, { label: 'Option Type', value: 'optionType' }, { label: 'Quantity', value: 'quantity' }, { label: 'Cost Basic', value: 'costBasic', type: 'currency' }, { label: 'Strike Price', value: 'strikePrice', type: 'currency' }, { label: 'Acquired Date', value: 'acquiredDate', type: 'date' }, { label: 'Expiration Date', value: 'expirationDate', type: 'date' }, { label: 'Fee', value: 'fee', type: 'currency' }, { label: 'Closed Date', value: 'closingDate', type: 'date' }, { label: 'Comment', value: 'comment' }]
+  activeActions = [{ label: 'Edit', value: 'edit' }, { label: 'Close', value: 'close' }, { label: 'Delete', value: 'delete' }];
+  closeActions = [{ label: 'Edit', value: 'edit' }, { label: 'Delete', value: 'delete' }]
   activeOptions$ = new BehaviorSubject<any[] | null>(null);
   closedOptions$ = new BehaviorSubject<any[] | null>(null);
   actionMap: any;
 
   constructor(public dialog: MatDialog, private optionService: OptionTradingService, private metadataService: MetadataService) { }
-
-  get totalBalance$() {
-    return this.closedOptions$.pipe(
-      map(list => list?.reduce((total, item) => total += item.fields.totalAmount, 0))
-    )
-  }
-
-  get potentialEarning$() {
-    return this.activeOptions$.pipe(
-      map(list => list?.reduce((total, item) => total += item.fields.costBasic, 0))
-    )
-  }
 
   ngOnInit(): void {
     this.initMap();
@@ -60,7 +49,8 @@ export class RecentTradeComponent implements OnInit {
   async openForm(option?: any): Promise<void> {
     const { OptionFormContainerComponent } = await import('./option-form-container/option-form-container.component');
     const dialogRef = this.dialog.open(OptionFormContainerComponent, {
-      width: '500px',
+      width: '700px',
+      height: '90vh',
       data: { option }
     });
     dialogRef.afterClosed().pipe(
@@ -96,7 +86,8 @@ export class RecentTradeComponent implements OnInit {
   close = async (option: any) => {
     const { OptionClosingComponent } = await import('./option-closing/option-closing.component');
     const dialogRef = this.dialog.open(OptionClosingComponent, {
-      width: '500px',
+      width: '700px',
+      height: '90vh',
       data: { option }
     });
     dialogRef.afterClosed().pipe(

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -19,7 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDividerModule
   ],
   exports: [OptionFormComponent]
 })
