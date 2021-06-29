@@ -10,7 +10,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { switchMap, tap } from 'rxjs/operators';
-import { OptionFormModule } from 'src/app/core/option-form/option-form.module';
+import { OptionFormModule } from 'src/app/shared/option-form/option-form.module';
 import { OptionTradingService } from 'src/app/core/services/option-trading.service';
 
 @Component({

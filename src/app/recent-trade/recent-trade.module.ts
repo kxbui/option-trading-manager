@@ -10,8 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RecentTradeResolver } from './recent-trade-resolver';
 import { MatMenuModule } from '@angular/material/menu';
-import { OptionValueFormatterModule } from '../core/option-value-formatter/option-value-formatter.module';
-import { TotalBalanceModule } from '../core/total-balance/total-balance.module';
+import { OptionValueFormatterModule } from '../shared/option-value-formatter/option-value-formatter.module';
+import { TotalBalanceModule } from '../shared/total-balance/total-balance.module';
 
 const routes: Routes = [
   {

@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { OptionTradingService } from 'src/app/core/services/option-trading.service';
 import { tap } from 'rxjs/operators';
-import { OptionFormModule } from 'src/app/core/option-form/option-form.module';
+import { OptionFormModule } from 'src/app/shared/option-form/option-form.module';
 
 @Component({
   selector: 'app-option-form-container',

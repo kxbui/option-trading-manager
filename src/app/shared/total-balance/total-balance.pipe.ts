@@ -10,7 +10,7 @@ export class TotalBalancePipe implements PipeTransform {
   }
 
   optionBalance(option: any) {
-    return (option.action === 'S' ? 1 : -1) * ((option.costBasic * option.quantity) - (option.fee ? +option.fee : 0));
+    return (option.action === 'S' ? -1 : 1) * ((option.costBasic * option.quantity) - (option.fee ? +option.fee : 0));
   }
 
 }
