@@ -43,7 +43,7 @@ export class OptionFormContainerComponent implements OnInit {
 
   setFormData(formGroup: FormGroup) {
     this.data.option ? formGroup.patchValue(this.data.option.fields) : null;
-    formGroup.get('closingDate')?.disable();
+    this.data.option.fields.status === 'Active' ? formGroup.get('closingDate')?.disable() : formGroup.get('closingDate')?.enable();
   }
 
   getDirtyValues(form: FormGroup) {
