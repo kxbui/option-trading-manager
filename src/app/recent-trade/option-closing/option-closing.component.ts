@@ -79,8 +79,6 @@ export class OptionClosingComponent implements OnInit {
     const form = formGroup.getRawValue();
     return {
       ...form,
-      acquiredDate: new Date(),
-      expirationDate: new Date(),
       status: 'Closed',
       comment: 'Auto-generated'
     };
